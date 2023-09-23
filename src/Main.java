@@ -19,32 +19,33 @@ public class Main {
         Thread myThread1 = new Thread(() -> {
             for (String str : texts) {
                 if (isStringPalindrom(str) && !isStringContainsChar(str)) {
-                    counter(str.length(), str);
+                    counter(str);
                 }
             }
         });
         myThread1.start();
-        myThread1.join();
 
 
         Thread myThread2 = new Thread(() -> {
             for (String str : texts) {
                 if (isStringContainsChar(str)) {
-                    counter(str.length(), str);
+                    counter(str);
                 }
             }
         });
         myThread2.start();
-        myThread2.join();
+
 
         Thread myThread3 = new Thread(() -> {
             for (String str : texts) {
                 if (isCharOrder(str)) {
-                    counter(str.length(), str);
+                    counter(str);
                 }
             }
         });
         myThread3.start();
+        myThread1.join();
+        myThread2.join();
         myThread3.join();
 
         System.out.printf("Красивых слов с длиной 3 : %d шт \n", countOf3.get());
@@ -87,8 +88,8 @@ public class Main {
         return true;
     }
 
-    public static void counter(int length, String str) {
-        switch (length) {
+    public static void counter(String str) {
+        switch (str.length()) {
             case (3):
                 countOf3.getAndIncrement();
                 break;
